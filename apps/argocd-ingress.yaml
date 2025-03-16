@@ -8,7 +8,9 @@ spec:
   source:
     repoURL: 'https://github.com/yoav-yung/argocd-repo-for-tests'
     targetRevision: main
-    path: apps
+    path: helm-charts
+    helm:
+      releaseName: argocd-ingress
   destination:
     server: https://kubernetes.default.svc
     namespace: default
