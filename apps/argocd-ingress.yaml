@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/yoav-yung/argocd-repo-for-tests'
     targetRevision: main
-    path: helm-charts
+    path: helm-charts/argocd-ingress
     helm:
       releaseName: argocd-ingress
   destination:
@@ -18,4 +18,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      
