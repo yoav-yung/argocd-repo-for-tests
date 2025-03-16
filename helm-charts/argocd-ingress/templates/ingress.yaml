@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     networking.gke.io/v1beta1.FrontendConfig: argocd-frontend-config
+    kubernetes.io/ingress.class: gce-internal
 spec:
   tls:
     - secretName: argo-tls
