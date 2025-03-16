@@ -1,0 +1,66 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+spec:
+  project: default
+  # Points to a directory in your repo that holds the child app manifests
+  source:
+    repoURL: 'https://github.com/yoav-yung/argocd-repo-for-tests'
+    targetRevision: HEAD
+    path: helm-charts
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+# Child Application: Deploy a Helm chart (Example: Chart One)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-app-1
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.example.com'
+    chart: chart-one
+    targetRevision: "1.0.0"
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: helm-app-1-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+# Child Application: Deploy another Helm chart (Example: Chart Two)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-app-2
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.example.com'
+    chart: chart-two
+    targetRevision: "2.1.0"
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: helm-app-2-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
