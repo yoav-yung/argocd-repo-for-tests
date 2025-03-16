@@ -6,15 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/yoav-yung/argocd-repo-for-tests/helm-charts'
-    chart: argocd-ingress
-    targetRevision: "0.1.0"
-    helm:
-      valueFiles:
-        - values.yaml
+    repoURL: 'https://github.com/yoav-yung/argocd-repo-for-tests'
+    targetRevision: main
+    path: apps
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: argocd-ingress
+    server: https://kubernetes.default.svc
+    namespace: default
   syncPolicy:
     automated:
       prune: true
